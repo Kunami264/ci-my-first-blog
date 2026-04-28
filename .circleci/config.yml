@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@2.1.1
+
+jobs:
+  build-and-test:
+    executor:
+      name: python/default
+      tag: "3.13"
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: Test
+          command: python manage.py test
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
